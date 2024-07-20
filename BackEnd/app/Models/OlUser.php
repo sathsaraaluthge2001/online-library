@@ -9,8 +9,8 @@ class OlUser extends Authenticatable
 {
     use HasFactory;
 
-    protected $table = 'olusers';
-    protected $primaryKey = 'email';
+    protected $table = 'olusers'; 
+    protected $primaryKey = 'email'; 
     public $incrementing = false;
     protected $keyType = 'string';
 

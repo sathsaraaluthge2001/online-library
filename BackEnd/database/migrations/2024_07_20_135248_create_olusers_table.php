@@ -12,9 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('olusers', function (Blueprint $table) {
-            $table->id();
+            $table->string('email')->primary();
             $table->string('username');
-            $table->string('email')->unique();
             $table->string('contactnumber');
             $table->string('password');
             $table->timestamps();
