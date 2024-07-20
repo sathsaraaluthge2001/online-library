@@ -68,8 +68,23 @@ public function search(Request $request)
         }
     }
 
+    // Find a book by ID
+    public function show(int $bookid)
+    {
+        try {
+            $book = $this->books->find($bookid);
+            if (!$book) {
+                return response()->json(['error' => 'Book not found'], 404);
+            }
+            return response()->json($book, 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+
     // Find a book by title
-    public function show(string $title)
+    public function showTitle(string $title)
     {
         try {
             $book = $this->books->where('title', $title)->first();
@@ -87,6 +102,20 @@ public function search(Request $request)
     {
         try {
             $book = $this->books->where('type', $type)->first();
+            if (!$book) {
+                return response()->json(['error' => 'Book not found'], 404);
+            }
+            return response()->json($book, 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    // Find a book by title
+    public function showDescription(string $description)
+    {
+        try {
+            $book = $this->books->where('description', $description)->first();
             if (!$book) {
                 return response()->json(['error' => 'Book not found'], 404);
             }

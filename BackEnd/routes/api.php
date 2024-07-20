@@ -11,5 +11,7 @@ Route::get('/user', function (Request $request) {
 Route::apiResource('/book',BookController::class);
 
 // Custom route for search
-Route::get('/book/search/{query}', [BookController::class, 'search']);
-Route::get('/book/showtype/{type}', [BookController::class, 'showType']);
+Route::get('/book/search/title/{title}', [BookController::class, 'showTitle']);
+Route::get('/book/search/description/{description}', [BookController::class, 'showDescription']);
+Route::get('/book/search/type/{type}', [BookController::class, 'showType']);
+Route::get('/book/search/query', [BookController::class, 'search']);
