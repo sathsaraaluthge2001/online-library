@@ -20,4 +20,7 @@ Route::get('/book/search/query', [BookController::class, 'search']);
 // OlUser registration and login routes
 Route::post('/register', [OlUserController::class, 'register']);
 Route::post('/login', [OlUserController::class, 'login'])->withoutMiddleware(['auth']);
+Route::get('/users', [OlUserController::class, 'getAllUsers']);
+Route::post('/user/email', [OlUserController::class, 'getUserByEmail']);
+
 

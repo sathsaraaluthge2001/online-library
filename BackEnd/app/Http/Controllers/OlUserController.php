@@ -47,7 +47,8 @@ class OlUserController extends Controller
         $user = OlUser::where('email', $request->input('email'))->first();
 
         if ($user && Hash::check($request->input('password'), $user->password)) {
-            return response()->json(['message' => 'Login successful'], 200);
+            // Return user details upon successful login
+            return response()->json(['message' => 'Login successful', 'user' => $user], 200);
         }
 
         return response()->json(['message' => 'Invalid credentials'], 401);
@@ -55,5 +56,38 @@ class OlUserController extends Controller
         return response()->json(['message' => 'Server error: ' . $e->getMessage()], 500);
     }
 }
+
+public function getAllUsers()
+    {
+        try {
+            $users = OlUser::all();
+            return response()->json(['users' => $users], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Server error: ' . $e->getMessage()], 500);
+        }
+    }
+
+    public function getUserByEmail(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|string|email',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        try {
+            $user = OlUser::where('email', $request->input('email'))->first();
+
+            if ($user) {
+                return response()->json(['user' => $user], 200);
+            }
+
+            return response()->json(['message' => 'User not found'], 404);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Server error: ' . $e->getMessage()], 500);
+        }
+    }
 
 }

@@ -16,7 +16,6 @@
                 <label for="password">Password</label>
                 <input type="password" class="form-control" placeholder="Your Password" v-model="password" id="password">
               </div>
-              
               <div class="d-flex mb-5 align-items-center">
                 <label class="control control--checkbox mb-0">
                   <span class="caption">Remember me</span>
@@ -25,7 +24,6 @@
                 </label>
                 <span class="ml-auto"><a href="#" class="forgot-pass">Forgot Password</a></span> 
               </div>
-
               <input type="submit" value="Log In" class="btn btn-block btn-primary">
             </form>
           </div>
@@ -50,38 +48,38 @@ export default {
   },
   methods: {
     async login() {
-  try {
-    const response = await axios.post('http://127.0.0.1:8000/api/login', {
-      email: this.email,
-      password: this.password
-    });
+      try {
+        const response = await axios.post('http://127.0.0.1:8000/api/login', {
+          email: this.email,
+          password: this.password
+        });
 
-    // Handle successful login
-    alert(response.data.message);
-    this.$router.push('/home');
-  } catch (error) {
-    // Check if the error response is available
-    if (error.response) {
-      // Handle known error responses
-      if (error.response.status === 401) {
-        alert('Invalid credentials. Please try again.');
-      } else if (error.response.status === 422) {
-        alert('Validation error: ' + Object.values(error.response.data.errors).flat().join(' '));
-      } else {
-        alert('Error: ' + (error.response.data.message || 'An error occurred'));
+        // Store user details in local storage
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+        
+        // Handle successful login
+        alert(response.data.message);
+        this.$router.push('/home');
+      } catch (error) {
+        // Check if the error response is available
+        if (error.response) {
+          // Handle known error responses
+          if (error.response.status === 401) {
+            alert('Invalid credentials. Please try again.');
+          } else if (error.response.status === 422) {
+            alert('Validation error: ' + Object.values(error.response.data.errors).flat().join(' '));
+          } else {
+            alert('Error: ' + (error.response.data.message || 'An error occurred'));
+          }
+        } else if (error.request) {
+          // Handle network errors
+          alert('Network error: Unable to reach the server.');
+        } else {
+          // Handle other types of errors
+          alert('Unexpected error: ' + error.message);
+        }
       }
-    } else if (error.request) {
-      // Handle network errors
-      alert('Network error: Unable to reach the server.');
-    } else {
-      // Handle other types of errors
-      alert('Unexpected error: ' + error.message);
     }
-  }
-}
-
   }
 };
 </script>
-
-

@@ -1,55 +1,66 @@
 <template>
-  <div class="container">
-    <div class="input-group mb-3 down size">
-      <div class="input-group-prepend ">
-        <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Dropdown
-            </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" @click="setSearchType('title')">Title</a>
-          <a class="dropdown-item" @click="setSearchType('description')">Description</a>
-          <a class="dropdown-item" @click="setSearchType('type')">Type</a>
-          <a class="dropdown-item" @click="setSearchType('query')">Query</a>
+  <NavBar/>
+  <div class="maindiv">
+    <div class="container mt-5">
+      <h2 class="text-center mb-4" style="color: white;">Available Books</h2>
+      <div class="input-group mb-4">
+        <div class="input-group-prepend">
+          <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Search By
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" @click="setSearchType('title')">Title</a>
+            <a class="dropdown-item" @click="setSearchType('description')">Description</a>
+            <a class="dropdown-item" @click="setSearchType('type')">Type</a>
+            <a class="dropdown-item" @click="setSearchType('query')">Query</a>
+          </div>
+        </div>
+        <input type="text" v-model="searchQuery" class="form-control" placeholder="Enter your search query...">
+        <div class="input-group-append">
+          <button class="btn btn-primary" @click="performSearch">Search</button>
         </div>
       </div>
-      <input type="text" v-model="searchQuery" class="form-control" aria-label="Text input with dropdown button">
-      <button class="btn btn-outline-secondary" @click="performSearch">Search</button>
+
+      <div v-if="errorMessage" class="alert alert-danger">
+        {{ errorMessage }}
+      </div>
+
+      <div v-if="!errorMessage" class="table-container">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Book ID</th>
+              <th scope="col">Title</th>
+              <th scope="col">Description</th>
+              <th scope="col">Type</th>
+              <th scope="col">Price</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody >
+            <tr v-if="books.length === 0">
+              <td colspan="6" class="text-center">No books found.</td>
+            </tr>
+            <tr class="table-warning" v-else v-for="book in books" :key="book.bookid">
+              <th scope="row">{{ book.bookid }}</th>
+              <td>{{ book.title }}</td>
+              <td>{{ book.description }}</td>
+              <td>{{ book.type }}</td>
+              <td>${{ book.price.toFixed(2) }}</td>
+              <td>
+                <button @click="takeBook(book.bookid)" class="btn btn-success">Take It</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-    <div v-if="errorMessage" class="alert alert-danger">
-      {{ errorMessage }}
-    </div>
-    <table class="table table-bordered" v-if="!errorMessage">
-      <thead>
-        <tr>
-          <th scope="col">Book ID</th>
-          <th scope="col">Title</th>
-          <th scope="col">Description</th>
-          <th scope="col">Type</th>
-          <th scope="col">Price</th>
-          <th scope="col">Take It</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-if="books.length === 0">
-          <td colspan="6" class="text-center">No books found.</td>
-        </tr>
-        <tr v-else v-for="book in books" :key="book.bookid">
-          <th scope="row">{{ book.bookid }}</th>
-          <td>{{ book.title }}</td>
-          <td>{{ book.description }}</td>
-          <td>{{ book.type }}</td>
-          <td>{{ book.price }}</td>
-          <td>
-            <button @click="takeBook(book.bookid)" class="btn btn-primary">Take It</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import NavBar from '../components/NavBar.vue';
 
 export default {
   name: 'HomePage',
@@ -121,18 +132,62 @@ export default {
 </script>
 
 <style scoped>
-.table {
-  width: 1000px;
-}
 .container {
-  justify-content: center;
-}
-.down {
-  margin-top: 200px;
-}
-.size {
-  width: 1000px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent white background */
+  padding: 20px;
+  border-radius: 10px;
+  background: url('src/images/bookwallpaper.jpg') no-repeat center center fixed;
+  background-size: cover;
 }
 
+.input-group {
+  max-width: 800px;
+  margin: 0 auto;
+}
 
+.table-container {
+  height: 400px;
+  overflow-y: auto; /* Enable vertical scrolling */
+  
+}
+
+.table {
+  margin-top: 20px;
+  width: 100%;
+  border-collapse: collapse; /* Ensure table borders are combined */
+}
+
+.table th, .table td {
+  text-align: left;
+  padding: 10px;
+}
+
+.table th {
+  background-color: #f8f9fa;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #f2f2f2;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #e9ecef;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.alert {
+  margin-top: 20px;
+}
 </style>
+
