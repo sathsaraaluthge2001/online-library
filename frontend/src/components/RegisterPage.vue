@@ -8,6 +8,7 @@
                         <h3>Register with <strong>Online-Library</strong></h3>
                         <p class="mb-4">Lorem ipsum dolor sit amet elit. Sapiente sit aut eos consectetur adipisicing.</p>
                         <form @submit.prevent="register">
+                            <div v-if="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
                             <div class="form-group first">
                                 <label for="username">Username</label>
                                 <input type="text" class="form-control" id="username" v-model="username" required>
@@ -30,7 +31,7 @@
                                     <input type="checkbox" checked="checked"/>
                                     <div class="control__indicator"></div>
                                 </label>
-                                <span class="ml-auto"><a href="#" class="forgot-pass">Already have account?</a></span>
+                                <span class="ml-auto"><a href="/" class="forgot-pass">Already have an account?</a></span>
                             </div>
                             <input type="submit" value="Register" class="btn btn-block btn-primary">
                         </form>
@@ -52,10 +53,12 @@ export default {
             email: '',
             contactNumber: '',
             password: '',
+            errorMessage: '',
         };
     },
     methods: {
         async register() {
+            this.errorMessage = ''; // Reset error message
             try {
                 const response = await axios.post('http://127.0.0.1:8000/api/register', {
                     username: this.username,
@@ -65,8 +68,7 @@ export default {
                 });
                 console.log(response.data);
                 alert('Register Successfully');
-                // Redirect to the LoginPage
-                this.$router.push('/'); // Use this.$router
+                this.$router.push('/'); // Redirect to LoginPage
 
             } catch (error) {
                 if (error.response) {
@@ -74,19 +76,18 @@ export default {
                     console.error('Response data:', error.response.data);
                     console.error('Response status:', error.response.status);
                     console.error('Response headers:', error.response.headers);
-                    alert('Please Try again');
-                    // Display validation errors to the user
+                    this.errorMessage = 'Registration failed. Please check your input and try again.';
+                    // Optionally, handle specific errors here
                 } else if (error.request) {
                     // Request was made but no response was received
                     console.error('Request data:', error.request);
-                    alert('Please Try again');
+                    this.errorMessage = 'No response from the server. Please try again later.';
                 } else {
                     // Something else happened while setting up the request
                     console.error('Error message:', error.message);
-                    alert('Please Try again');
+                    this.errorMessage = 'An unexpected error occurred. Please try again later.';
                 }
                 console.error('Error config:', error.config);
-                alert('Please Try again');
             }
         },
     },
@@ -94,5 +95,7 @@ export default {
 </script>
 
 <style scoped>
-/* Add styles if needed */
+.alert {
+    margin-bottom: 1rem;
+}
 </style>

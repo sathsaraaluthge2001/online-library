@@ -117,8 +117,8 @@ export default {
           this.errorMessage = this.books.length === 0 ? 'No books found.' : '';
         }
       } catch (error) {
-        console.error('Error performing search:', error);
-        this.errorMessage = 'Error performing search. Not Founded.';
+        console.error('Error performing search:');
+        this.errorMessage = 'No books found.';
       }
     },
     setSearchType(type) {
