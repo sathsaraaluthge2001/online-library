@@ -32,6 +32,7 @@
               <input type="text" id="contactnumber" class="form-control" v-model="user.contactnumber">
             </div>
             <div class="mt-4 text-center">
+              <!-- Update profile button could be added here -->
             </div>
           </form>
           <div class="mt-4 text-center">
@@ -57,10 +58,10 @@
             <tr v-for="book in books" :key="book.id">
               <th scope="row">{{ book.bookid }}</th>
               <td>{{ book.booktitle }}</td>
-              <td><button  class="btn btn-success">Return</button></td>
+              <td><button class="btn btn-success" @click="returnBook(book.bookid)">Return</button></td>
             </tr>
             <tr v-if="!books.length">
-              <td colspan="2" class="text-center">No books available</td>
+              <td colspan="3" class="text-center">No books available</td>
             </tr>
           </tbody>
         </table>
@@ -85,10 +86,23 @@ export default {
     };
   },
   methods: {
-    
     async logout() {
       localStorage.removeItem('user'); // Clear user data from localStorage
       this.$router.push('/'); // Redirect to login page
+    },
+    async returnBook(bookId) {
+      try {
+        const response = await axios.delete(`http://127.0.0.1:8000/api/borrowings/${bookId}`);
+        if (response.status === 200) {
+          this.books = this.books.filter(book => book.bookid !== bookId); // Remove the returned book from the array
+          alert('Book returned successfully');
+        } else {
+          alert('Error returning the book. Please try again.');
+        }
+      } catch (error) {
+        console.error('Error returning the book:', error);
+        alert('Error returning the book. Please try again.');
+      }
     }
   },
   async mounted() {

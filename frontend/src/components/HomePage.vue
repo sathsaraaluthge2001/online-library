@@ -37,7 +37,7 @@
               <th scope="col">Action</th>
             </tr>
           </thead>
-          <tbody >
+          <tbody>
             <tr v-if="books.length === 0">
               <td colspan="6" class="text-center">No books found.</td>
             </tr>
@@ -48,7 +48,7 @@
               <td>{{ book.type }}</td>
               <td>${{ book.price.toFixed(2) }}</td>
               <td>
-                <button @click="takeBook(book.bookid)" class="btn btn-success">Take It</button>
+                <button @click="takeBook(book)" class="btn btn-success">Take It</button>
               </td>
             </tr>
           </tbody>
@@ -124,8 +124,31 @@ export default {
     setSearchType(type) {
       this.searchType = type;
     },
-    async takeBook(bookid) {
-      // Handle book taking logic here
+    async takeBook(book) {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (!user || !user.email) {
+        alert('User not logged in.');
+        this.$router.push('/'); // Redirect to login page
+        return;
+      }
+
+      try {
+        const response = await axios.post('http://127.0.0.1:8000/api/borrowing', {
+          bookid: book.bookid,
+          useremail: user.email,
+          booktitle: book.title,
+        });
+
+        if (response.status === 201) {
+          alert('Book borrowed successfully');
+          this.fetchBooks(); // Refresh the book list
+        } else {
+          alert('Error borrowing the book. Please try again.');
+        }
+      } catch (error) {
+        console.error('Error borrowing the book:', error);
+        alert('Error borrowing the book. Please try again.');
+      }
     },
   },
 };
@@ -190,4 +213,3 @@ export default {
   margin-top: 20px;
 }
 </style>
-
