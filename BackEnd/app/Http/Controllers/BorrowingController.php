@@ -44,19 +44,20 @@ class BorrowingController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function searchByEmail(Request $request)
-    {
-        $request->validate([
-            'useremail' => 'required|email',
-        ]);
+{
+    $request->validate([
+        'useremail' => 'required|email',
+    ]);
 
-        $borrowings = Borrowing::where('useremail', $request->useremail)->get();
+    $borrowings = Borrowing::where('useremail', $request->query('useremail'))->get();
 
-        if ($borrowings->isEmpty()) {
-            return response()->json(['message' => 'No borrowings found for this email.'], 404);
-        }
-
-        return response()->json($borrowings);
+    if ($borrowings->isEmpty()) {
+        return response()->json(['message' => 'No borrowings found for this email.'], 404);
     }
+
+    return response()->json($borrowings);
+}
+
 
     /**
      * Remove the specified borrowing from storage by bookid.
@@ -76,4 +77,6 @@ class BorrowingController extends Controller
 
         return response()->json(['message' => 'Borrowing deleted successfully.']);
     }
+
+   
 }

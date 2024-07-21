@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Book;
+use App\Models\Borrowing;
+
 
 class BookController extends Controller
 {
@@ -18,7 +20,8 @@ class BookController extends Controller
     public function index()
     {
         try {
-            $books = $this->books->all();
+            $borrowedBookIds = Borrowing::pluck('bookid')->toArray();
+            $books = $this->books->whereNotIn('bookid', $borrowedBookIds)->get();
             return response()->json($books, 200);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
@@ -124,4 +127,7 @@ public function search(Request $request)
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+
+
+    
 }
