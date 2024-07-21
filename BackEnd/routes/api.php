@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\OlUserController;
+use App\Http\Controllers\BorrowingController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -22,5 +23,10 @@ Route::post('/register', [OlUserController::class, 'register']);
 Route::post('/login', [OlUserController::class, 'login'])->withoutMiddleware(['auth']);
 Route::get('/users', [OlUserController::class, 'getAllUsers']);
 Route::post('/user/email', [OlUserController::class, 'getUserByEmail']);
+
+Route::get('borrowings', [BorrowingController::class, 'index']);
+Route::post('borrowings', [BorrowingController::class, 'store']);
+Route::get('borrowings/search', [BorrowingController::class, 'searchByEmail']);
+Route::delete('borrowings/{bookid}', [BorrowingController::class, 'deleteByBookId']);
 
 
