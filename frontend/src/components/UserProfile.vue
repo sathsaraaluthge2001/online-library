@@ -21,15 +21,15 @@
           <form @submit.prevent="updateProfile">
             <div class="form-group">
               <label for="username">User Name</label>
-              <input type="text" id="username" class="form-control" v-model="user.username">
+              <input type="text" id="username" class="form-control" v-model="user.username" disabled>
             </div>
             <div class="form-group mt-3">
               <label for="email">Email</label>
-              <input type="email" id="email" class="form-control" v-model="user.email">
+              <input type="email" id="email" class="form-control" v-model="user.email" disabled>
             </div>
             <div class="form-group mt-3">
               <label for="contactnumber">Mobile Number</label>
-              <input type="text" id="contactnumber" class="form-control" v-model="user.contactnumber">
+              <input type="text" id="contactnumber" class="form-control" v-model="user.contactnumber" disabled>
             </div>
             <div class="mt-4 text-center">
               <!-- Update profile button could be added here -->
