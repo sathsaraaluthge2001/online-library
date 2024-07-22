@@ -24,6 +24,7 @@ class BorrowingController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
+    //store the borrowing details
     public function store(Request $request)
     {
         $request->validate([
@@ -43,6 +44,8 @@ class BorrowingController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
+
+     //search using mail
     public function searchByEmail(Request $request)
 {
     $request->validate([
@@ -65,6 +68,8 @@ class BorrowingController extends Controller
      * @param int $bookid
      * @return \Illuminate\Http\Response
      */
+
+     //delete borroing books using bookid
     public function deleteByBookId($bookid)
     {
         $borrowing = Borrowing::where('bookid', $bookid)->first();

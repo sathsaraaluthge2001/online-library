@@ -43,10 +43,10 @@ class BookController extends Controller
 public function search(Request $request)
 {
     try {
-        $query = $request->input('query'); // Get the query parameter from the URL
+        $query = $request->input('query'); 
         $books = Book::where('title', 'like', "%$query%")
             ->orWhere('description', 'like', "%$query%")
-            ->orWhere('type', 'like', "%$query%") // Ensure column name matches your model
+            ->orWhere('type', 'like', "%$query%") 
             ->get();
         
         return response()->json($books, 200);

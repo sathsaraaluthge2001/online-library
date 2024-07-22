@@ -9,11 +9,12 @@ use Illuminate\Support\Facades\Hash;
 
 class OlUserController extends Controller
 {
+    //user register 
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'username' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:olusers', // Ensure this matches the table name
+            'email' => 'required|string|email|max:255|unique:olusers', 
             'contactnumber' => 'required|string|max:15',
             'password' => 'required|string|min:8',
         ]);
@@ -32,6 +33,7 @@ class OlUserController extends Controller
         return response()->json(['message' => 'User successfully registered', 'user' => $user], 201);
     }
 
+    //user login
     public function login(Request $request)
 {
     $validator = Validator::make($request->all(), [
@@ -56,7 +58,7 @@ class OlUserController extends Controller
         return response()->json(['message' => 'Server error: ' . $e->getMessage()], 500);
     }
 }
-
+//get all users
 public function getAllUsers()
     {
         try {

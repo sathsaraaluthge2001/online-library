@@ -9,7 +9,7 @@ class Borrowing extends Model
 {
     use HasFactory;
 
-    // Specify the table name if it's different from the default (plural of the model name)
+    
     protected $table = 'borrowings';
 
     // Define the primary key if it's not 'id'
