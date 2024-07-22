@@ -129,4 +129,8 @@ export default {
 .shadow-sm {
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
 }
+.btn-success {
+  background-color: #4e290f;
+  border-color: #ffffff;
+}
 </style>

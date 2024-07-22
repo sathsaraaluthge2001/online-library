@@ -5,8 +5,7 @@
             <div class="container">
                 <div class="row align-items-center justify-content-center">
                     <div class="col-md-7">
-                        <h3>Register with <strong>Online-Library</strong></h3>
-                        <p class="mb-4">Lorem ipsum dolor sit amet elit. Sapiente sit aut eos consectetur adipisicing.</p>
+                        <h3 class="fontcolor">Register with <strong>Online-Library</strong></h3>
                         <form @submit.prevent="register">
                             <div v-if="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
                             <div class="form-group first">
@@ -23,17 +22,13 @@
                             </div>
                             <div class="form-group last mb-3">
                                 <label for="password">Password</label>
-                                <input type="password" class="form-control" id="password" v-model="password" required>
+                                <input type="password" class="form-control" id="password" placeholder="At least 8 charachters" v-model="password" required>
                             </div>
                             <div class="d-flex mb-5 align-items-center">
-                                <label class="control control--checkbox mb-0">
-                                    <span class="caption">Remember me</span>
-                                    <input type="checkbox" checked="checked"/>
-                                    <div class="control__indicator"></div>
-                                </label>
+                                
                                 <span class="ml-auto"><a href="/" class="forgot-pass">Already have an account?</a></span>
                             </div>
-                            <input type="submit" value="Register" class="btn btn-block btn-primary">
+                            <input type="submit" value="Register" class="btn btn-block btn-dark-brown ">
                         </form>
                     </div>
                 </div>
@@ -94,8 +89,22 @@ export default {
 };
 </script>
 
-<style scoped>
+<style >
 .alert {
     margin-bottom: 1rem;
 }
+.btn-dark-brown {
+            background-color: #4e290f; 
+            border-color: #4e290f;    
+            color: white;  
+            font-weight: 800;          
+        }
+        .btn-dark-brown:hover {
+            background-color: #A0522D; 
+            border-color: #A0522D;    
+        }
+
+        .fontcolor{
+          color: #4e290f;
+        }
 </style>

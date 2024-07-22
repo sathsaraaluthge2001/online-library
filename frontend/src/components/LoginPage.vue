@@ -5,16 +5,15 @@
       <div class="container">
         <div class="row align-items-center justify-content-center">
           <div class="col-md-7">
-            <h3>Login to <strong>Online-Library</strong></h3>
-            <p class="mb-4">Lorem ipsum dolor sit amet elit. Sapiente sit aut eos consectetur adipisicing.</p>
+            <h3 class="fontcolor">Login to <strong>Online-Library</strong></h3>
             <form @submit.prevent="login">
               <div class="form-group first">
                 <label for="username">Email</label>
-                <input type="text" class="form-control" placeholder="your-email@gmail.com" v-model="email" id="username">
+                <input type="text" class="form-control"  v-model="email" id="username" required>
               </div>
               <div class="form-group last mb-3">
                 <label for="password">Password</label>
-                <input type="password" class="form-control" placeholder="Your Password" v-model="password" id="password">
+                <input type="password" class="form-control"  v-model="password" id="password" required>
               </div>
               <div class="d-flex mb-5 align-items-center">
                 <label class="control control--checkbox mb-0">
@@ -24,7 +23,7 @@
                 </label>
                 <span class="ml-auto"><a href="/register" class="forgot-pass">Do not have account?</a></span> 
               </div>
-              <input type="submit" value="Log In" class="btn btn-block btn-primary">
+              <input type="submit" value="Log In" class="btn btn-block btn-dark-brown">
             </form>
           </div>
         </div>
@@ -83,3 +82,20 @@ export default {
   }
 };
 </script>
+
+<style>
+        .btn-dark-brown {
+            background-color: #4e290f; 
+            border-color: #4e290f;    
+            color: white;  
+            font-weight: 800;          
+        }
+        .btn-dark-brown:hover {
+            background-color: #A0522D; 
+            border-color: #A0522D;    
+        }
+
+        .fontcolor{
+          color: #4e290f;
+        }
+ </style>

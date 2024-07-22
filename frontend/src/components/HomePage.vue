@@ -5,7 +5,7 @@
       <h2 class="text-center mb-4" style="color: white;">Available Books</h2>
       <div class="input-group mb-4">
         <div class="input-group-prepend">
-          <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <button class="btn dropdown-toggle drp " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Search By
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -29,19 +29,19 @@
         <table class="table " style="color: whitesmoke;">
           <thead>
             <tr>
-              <th scope="col" class="bg-transparent">Book ID</th>
-              <th scope="col" class="bg-transparent">Title</th>
-              <th scope="col" class="bg-transparent">Description</th>
-              <th scope="col" class="bg-transparent">Type</th>
-              <th scope="col" class="bg-transparent">Price</th>
-              <th scope="col" class="bg-transparent">Action</th>
+              <th scope="col" class="ths">Book ID</th>
+              <th scope="col" class="ths">Title</th>
+              <th scope="col" class="ths">Description</th>
+              <th scope="col" class="ths">Type</th>
+              <th scope="col" class="ths">Price</th>
+              <th scope="col" class="ths">Action</th>
             </tr>
           </thead>
           <tbody>
             <tr v-if="books.length === 0">
               <td colspan="6" class="text-center">No books found.</td>
             </tr>
-            <tr class=".bg-transparent-white" v-else v-for="book in books" :key="book.bookid">
+            <tr class="blur-container" v-else v-for="book in books" :key="book.bookid">
               <th scope="row" class="bg-transparent">{{ book.bookid }}</th>
               <td>{{ book.title }}</td>
               <td>{{ book.description }}</td>
@@ -205,11 +205,24 @@ export default {
 }
 
 .btn-success {
-  background-color: #28a745;
-  border-color: #28a745;
+  background-color: #4e290f;
+  border-color: #fafafa;
 }
 
 .alert {
   margin-top: 20px;
 }
+
+.blur-container {
+            backdrop-filter: blur(3px);
+            background-color: rgba(36, 29, 29, 0.247); 
+            padding: 20px;
+} 
+
+.ths {
+  background-color: rgba(0, 0, 0, 0.2); 
+  color: #2c2c2c;  }
+  .drp {
+  background-color: rgba(180, 157, 157, 0.9); 
+  color: #fcfcfc;  }
 </style>
