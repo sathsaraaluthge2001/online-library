@@ -26,23 +26,23 @@
       </div>
 
       <div v-if="!errorMessage" class="table-container">
-        <table class="table">
+        <table class="table " style="color: whitesmoke;">
           <thead>
             <tr>
-              <th scope="col">Book ID</th>
-              <th scope="col">Title</th>
-              <th scope="col">Description</th>
-              <th scope="col">Type</th>
-              <th scope="col">Price</th>
-              <th scope="col">Action</th>
+              <th scope="col" class="bg-transparent">Book ID</th>
+              <th scope="col" class="bg-transparent">Title</th>
+              <th scope="col" class="bg-transparent">Description</th>
+              <th scope="col" class="bg-transparent">Type</th>
+              <th scope="col" class="bg-transparent">Price</th>
+              <th scope="col" class="bg-transparent">Action</th>
             </tr>
           </thead>
           <tbody>
             <tr v-if="books.length === 0">
               <td colspan="6" class="text-center">No books found.</td>
             </tr>
-            <tr class="table-warning" v-else v-for="book in books" :key="book.bookid">
-              <th scope="row">{{ book.bookid }}</th>
+            <tr class=".bg-transparent-white" v-else v-for="book in books" :key="book.bookid">
+              <th scope="row" class="bg-transparent">{{ book.bookid }}</th>
               <td>{{ book.title }}</td>
               <td>{{ book.description }}</td>
               <td>{{ book.type }}</td>

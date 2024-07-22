@@ -18,10 +18,6 @@ Route::get('/book/search/description/{description}', [BookController::class, 'sh
 Route::get('/book/search/type/{type}', [BookController::class, 'showType']);
 Route::get('/book/search/query', [BookController::class, 'search']);
 
-
-
-
-
 // OlUser registration and login routes
 Route::post('/register', [OlUserController::class, 'register']);
 Route::post('/login', [OlUserController::class, 'login'])->withoutMiddleware(['auth']);
